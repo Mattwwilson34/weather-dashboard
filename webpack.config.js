@@ -11,11 +11,8 @@ export default {
   experiments: {
     outputModule: true,
   },
-  plugins: [
-    //empty pluggins array
-  ],
+  plugins: [],
   module: {
-    // https://webpack.js.org/loaders/babel-loader/#root
     rules: [
       {
         test: /.m?js$/,
