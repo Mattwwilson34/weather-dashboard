@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import axios from 'axios';
 import queryString from 'query-string';
 import moment from 'moment';
 import { API_KEY } from './global-env-variables.js';
@@ -58,11 +58,10 @@ const getWeatherData = async () => {
   );
 
   try {
-    const weatherData = await fetch(
+    const weatherData = await axios.get(
       `${getTimelineURL}?${getTimelineParameters}`,
     );
-    const weatherDataJson = await weatherData.json();
-    return weatherDataJson;
+    return weatherData.data.data;
   } catch (error) {
     console.error(error);
   }

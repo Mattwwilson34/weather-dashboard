@@ -1,11 +1,16 @@
+import axios from 'axios';
+
 const getData = async () => {
   try {
-    const response = await fetch('http://localhost:3000/');
-    const data = await response.json();
-    console.log(data);
+    const weatherData = await axios.get('http://localhost:3000/');
+    console.log(weatherData);
   } catch (error) {
     console.error(error);
   }
 };
 
-getData();
+// Added to prevent API call on app refresh
+const weatherButton = document.querySelector('button');
+weatherButton.addEventListener('click', () => {
+  getData();
+});
