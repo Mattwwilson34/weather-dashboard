@@ -19,7 +19,6 @@ const getWeatherData = async () => {
     const weatherData = await axios.get(
       `${openWeatherURL}?lat=${lat}&lon=${lon}&appid=${apikey}&units=${units}`,
     );
-    console.log(weatherData);
     return weatherData.data;
   } catch (error) {
     console.error(error);
