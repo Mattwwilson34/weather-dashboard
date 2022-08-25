@@ -15,9 +15,12 @@ const getWeatherData = async () => {
   // choose the unit system
   const units = 'imperial';
 
+  //  pick number of timestamps
+  const timeStamps = 40;
+
   try {
     const weatherData = await axios.get(
-      `${openWeatherURL}?lat=${lat}&lon=${lon}&appid=${apikey}&units=${units}`,
+      `${openWeatherURL}?lat=${lat}&lon=${lon}&appid=${apikey}&units=${units}&cnt=${timeStamps}`,
     );
     return weatherData.data;
   } catch (error) {
