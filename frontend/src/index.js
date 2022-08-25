@@ -1,5 +1,6 @@
 import getWeatherData from './modules/get-weather-data.js';
 import moment from 'moment';
+import css from './styles/style.css';
 
 const body = document.querySelector('body');
 
