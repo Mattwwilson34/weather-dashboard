@@ -9,7 +9,8 @@
     "build": "node_modules/.bin/webpack --config webpack.config.js --mode=production",
     "watch": "node_modules/.bin/webpack --config webpack.config.js --mode=development -w",
     "prebuild:dev": "rimraf dist",
-    "test": "yarn node --experimental-vm-modules $(yarn bin jest) --watch"
+    "test": "yarn node --experimental-vm-modules $(yarn bin jest) --watch",
+    "start-backend-server": "npx nodemon backend/index.js"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",
