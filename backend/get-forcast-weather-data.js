@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { API_KEY } from './global-env-variables.js';
 
-const getWeatherData = async () => {
+const getForcastWeatherData = async () => {
   // set the openWeather endpoint as the target URL
   const openWeatherURL = 'https://api.openweathermap.org/data/2.5/forecast';
 
@@ -28,4 +28,4 @@ const getWeatherData = async () => {
   }
 };
 
-export default getWeatherData;
+export default getForcastWeatherData;

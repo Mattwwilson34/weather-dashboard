@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getWeatherData = async () => {
+const getForcastWeatherData = async () => {
   try {
     return await axios.get('http://localhost:3000/');
   } catch (error) {
@@ -8,4 +8,4 @@ const getWeatherData = async () => {
   }
 };
 
-export default getWeatherData;
+export default getForcastWeatherData;
