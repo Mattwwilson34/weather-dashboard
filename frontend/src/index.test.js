@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import getWeatherData from './modules/get-weather-data.js';
+import getWeatherData from './modules/get-forcast-weather-data.js';
 
 const MOCK_WEATHER_DATA = {
   dt: 1661396400,
@@ -40,7 +40,7 @@ const MOCK_WEATHER_DATA = {
 };
 
 const server = setupServer(
-  rest.get('http://localhost:3000/', (req, res, ctx) => {
+  rest.get('http://localhost:3000/forcast', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(MOCK_WEATHER_DATA));
   }),
 
@@ -73,7 +73,7 @@ describe('Backend open weather API call', () => {
 
   it('handles failure', async () => {
     server.use(
-      rest.get('http://localhost:3000/', (req, res, ctx) => {
+      rest.get('http://localhost:3000/forcast', (req, res, ctx) => {
         return res(ctx.status(404));
       }),
     );
