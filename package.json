@@ -1,5 +1,5 @@
 {
-  "name": "TOP-weather-app-2.1",
+  "name": "top-weather-app-2.1",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/Mattwwilson34/TOP-weather-app-2.1.git",
@@ -9,6 +9,7 @@
     "build": "node_modules/.bin/webpack --config webpack.config.js --mode=production",
     "watch": "node_modules/.bin/webpack --config webpack.config.js --mode=development -w",
     "prebuild:dev": "rimraf dist",
+    "lint": "eslint ./frontend ./backend --ext .js",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest) --watch",
     "start-backend-server": "npx nodemon backend/index.js"
   },
@@ -18,7 +19,9 @@
     "@types/jest": "^28.1.7",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
-    "eslint": "^8.22.0",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-jest": "^26.8.7",
     "msw": "^0.45.0",
     "nodemon": "^2.0.19",
