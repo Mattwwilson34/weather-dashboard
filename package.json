@@ -9,7 +9,7 @@
     "build": "node_modules/.bin/webpack --config webpack.config.js --mode=production",
     "prebuild:dev": "rimraf dist",
     "lint": "eslint ./frontend ./backend --ext .js",
-    "test": "yarn node --experimental-vm-modules $(yarn bin jest) --watch",
+    "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
     "start-backend-server": "npx nodemon backend/index.js"
   },
   "devDependencies": {
