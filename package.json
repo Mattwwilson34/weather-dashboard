@@ -10,7 +10,8 @@
     "prebuild:dev": "rimraf dist",
     "lint": "eslint ./frontend ./backend --ext .js",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
-    "start-backend-server": "npx nodemon backend/index.js"
+    "start-backend-server": "npx nodemon backend/index.js",
+    "start-frontend-server": "node_modules/.bin/webpack watch --config webpack.config.js  --mode=development"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",
