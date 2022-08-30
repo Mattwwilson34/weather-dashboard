@@ -70,6 +70,9 @@ zipCodeSubmitBtn.addEventListener('click', async () => {
     return;
   }
 
+  // get lat lon from zip
   const latLonData = await getLatLonFromZip(zipCode);
-  console.log(latLonData.data.location[0]);
+
+  // destructure from data
+  const { latitude, longitude } = latLonData.data.location[0];
 });
