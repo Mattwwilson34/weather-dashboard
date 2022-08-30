@@ -1,8 +1,13 @@
 import axios from 'axios';
 
-const getForcastWeatherData = async () => {
+const getForcastWeatherData = async (
+  latitude = 40.171047,
+  longitude = -74.82796,
+) => {
   try {
-    return await axios.get('http://localhost:3000/forcast');
+    return await axios.get(
+      `http://localhost:3000/forcast?lat=${latitude}&lon=${longitude}`,
+    );
   } catch (error) {
     throw new Error(error);
   }
