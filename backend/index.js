@@ -33,7 +33,8 @@ app.get('/forcast', async (req, res) => {
 
 app.get('/lat-long-from-zip', async (req, res) => {
   try {
-    const latLonData = await getLatLonFromZip();
+    const zipCode = req.query.zipCode;
+    const latLonData = await getLatLonFromZip(zipCode);
     res.send(latLonData);
   } catch (error) {
     throw new Error(error);

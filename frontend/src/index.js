@@ -55,3 +55,21 @@ zipcodeButton.addEventListener('click', async () => {
   const latLonData = await getLatLonFromZip();
   console.log(latLonData.data.location[0]);
 });
+
+// Grab zipcode form data
+const zipCodeInput = document.getElementById('zip-code-input');
+const zipCodeSubmitBtn = document.getElementById('zip-code-submit-btn');
+zipCodeSubmitBtn.addEventListener('click', async () => {
+  //
+  const zipCode = zipCodeInput.value;
+  const zipcodeLength = zipCode.length;
+
+  // Validata input is a properly formatted zipcode
+  if (Number.isNaN(parseInt(zipCode)) || zipcodeLength !== 5) {
+    alert('Zipcode format must be 5 numbers and no letters ex: 19054');
+    return;
+  }
+
+  const latLonData = await getLatLonFromZip(zipCode);
+  console.log(latLonData.data.location[0]);
+});
