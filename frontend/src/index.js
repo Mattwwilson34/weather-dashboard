@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import getCurrentWeatherData from './modules/get-current-weather-data.js';
+import getLatLonFromZip from './modules/get-latlon-from-zip.js';
 import moment from 'moment';
 import css from './styles/style.css';
 /* eslint-disable no-unused-vars */
@@ -20,7 +21,7 @@ const kilometer = `km`;
 const weatherImgURL = `http://openweathermap.org/img/wn/`;
 
 // Added to prevent API call on app refresh
-const weatherButton = document.querySelector('button');
+const weatherButton = document.getElementById('get-weather-btn');
 weatherButton.addEventListener('click', async () => {
   //
   // Get weather Data
@@ -46,4 +47,32 @@ weatherButton.addEventListener('click', async () => {
   weatherDetailDivs[0].textContent = `${speed}${kilometer}`;
   weatherDetailDivs[1].textContent = `${pressure}${hectopascal}`;
   weatherDetailDivs[2].textContent = `${humidity}${unicodePercent}`;
+});
+
+// Conver Zip
+const zipcodeButton = document.getElementById('convert-zip-code-btn');
+zipcodeButton.addEventListener('click', async () => {
+  const latLonData = await getLatLonFromZip();
+  console.log(latLonData.data.location[0]);
+});
+
+// Grab zipcode form data
+const zipCodeInput = document.getElementById('zip-code-input');
+const zipCodeSubmitBtn = document.getElementById('zip-code-submit-btn');
+zipCodeSubmitBtn.addEventListener('click', async () => {
+  //
+  const zipCode = zipCodeInput.value;
+  const zipcodeLength = zipCode.length;
+
+  // Validata input is a properly formatted zipcode
+  if (Number.isNaN(parseInt(zipCode)) || zipcodeLength !== 5) {
+    alert('Zipcode format must be 5 numbers and no letters ex: 19054');
+    return;
+  }
+
+  // get lat lon from zip
+  const latLonData = await getLatLonFromZip(zipCode);
+
+  // destructure from data
+  const { latitude, longitude } = latLonData.data.location[0];
 });

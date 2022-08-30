@@ -3,6 +3,7 @@ import cors from 'cors';
 import logger from 'morgan';
 import getCurrentWeatherData from './get-current-weather-data.js';
 import getForcastWeatherData from './get-forcast-weather-data.js';
+import getLatLonFromZip from './get-latlon-from-zip.js';
 
 const port = 3000;
 const app = express();
@@ -17,7 +18,7 @@ app.get('/current', async (req, res) => {
     const weatherData = await getCurrentWeatherData();
     res.send(weatherData);
   } catch (error) {
-    console.error(error);
+    throw new Error(error);
   }
 });
 
@@ -26,7 +27,17 @@ app.get('/forcast', async (req, res) => {
     const weatherData = await getForcastWeatherData();
     res.send(weatherData);
   } catch (error) {
-    console.error(error);
+    throw new Error(error);
+  }
+});
+
+app.get('/lat-long-from-zip', async (req, res) => {
+  try {
+    const zipCode = req.query.zipCode;
+    const latLonData = await getLatLonFromZip(zipCode);
+    res.send(latLonData);
+  } catch (error) {
+    throw new Error(error);
   }
 });
 

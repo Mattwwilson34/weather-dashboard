@@ -8,6 +8,14 @@
   </head>
   <body>
     <section>
+      <form action="#" id="zip-code-form" class="zip-code-form">
+        <label for="zip-code-input">Enter a Zip Code</label
+        ><input id="zip-code-input" type="text" />
+        <button id="zip-code-submit-btn">submit</button>
+      </form>
+    </section>
+
+    <section>
       <div class="weather-card">
         <img
           src="http://openweathermap.org/img/wn/10d@2x.png"
@@ -29,8 +37,10 @@
         </div>
       </div>
     </section>
-
-    <button>Get Weather Data</button>
+    <div class="api-btn-container">
+      <button id="get-weather-btn">Get Weather Data</button>
+      <button id="convert-zip-code-btn">Convert Zip Code</button>
+    </div>
     <script src="bundle.js"></script>
   </body>
 </html>
