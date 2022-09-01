@@ -20,42 +20,6 @@ const kilometer = `km`;
 // Weather image base url
 const weatherImgURL = `http://openweathermap.org/img/wn/`;
 
-// Added to prevent API call on app refresh
-const weatherButton = document.getElementById('get-weather-btn');
-weatherButton.addEventListener('click', async () => {
-  //
-  // Get weather Data
-  const weatherAPIResponse = await getCurrentWeatherData();
-  const weatherData = weatherAPIResponse.data;
-  console.log(weatherData);
-
-  // Destructure weather data
-  const {
-    main: { temp, pressure, humidity },
-    wind: { speed },
-    name,
-  } = weatherData;
-
-  // Set weather Image
-  weatherImg.src = `${weatherImgURL}${weatherData.weather[0].icon}@2x.png`;
-
-  // Set temp and location
-  temperatureH1.textContent = `${Math.round(temp)}${unicodeDegree}`;
-  locationH1.textContent = name;
-
-  // Set weather details
-  weatherDetailDivs[0].textContent = `${speed}${kilometer}`;
-  weatherDetailDivs[1].textContent = `${pressure}${hectopascal}`;
-  weatherDetailDivs[2].textContent = `${humidity}${unicodePercent}`;
-});
-
-// Conver Zip
-const zipcodeButton = document.getElementById('convert-zip-code-btn');
-zipcodeButton.addEventListener('click', async () => {
-  const latLonData = await getLatLonFromZip();
-  console.log(latLonData.data.location[0]);
-});
-
 // Grab zipcode form data
 const zipCodeInput = document.getElementById('zip-code-input');
 const zipCodeSubmitBtn = document.getElementById('zip-code-submit-btn');
@@ -75,4 +39,41 @@ zipCodeSubmitBtn.addEventListener('click', async () => {
 
   // destructure from data
   const { latitude, longitude } = latLonData.data.location[0];
+
+  // Get weather Data
+  const weatherAPIResponse = await getCurrentWeatherData(latitude, longitude);
+  const weatherData = weatherAPIResponse.data;
+  console.log(weatherData);
+
+  // Destructure weather data
+  const {
+    main: { temp, pressure, humidity },
+    wind: { speed },
+    name,
+  } = weatherData;
+
+  // Set weather Image
+  weatherImg.src = `${weatherImgURL}${weatherData.weather[0].icon}@2x.png`;
+
+  // Set temp and location
+  temperatureH1.textContent = `${Math.round(temp)}${unicodeDegree}`;
+  locationH1.textContent = name;
+
+  // Set weather details
+  weatherDetailDivs[0].textContent = `${speed}`;
+  weatherDetailDivs[1].textContent = `${pressure}`;
+  weatherDetailDivs[2].textContent = `${humidity}`;
+
+  // Append units to data
+  const kmSpan = document.createElement('span');
+  const hpaSpan = document.createElement('span');
+  const percentSpan = document.createElement('span');
+
+  kmSpan.textContent = `${kilometer}`;
+  hpaSpan.textContent = `${hectopascal}`;
+  percentSpan.textContent = `${unicodePercent}`;
+
+  weatherDetailDivs[0].append(kmSpan);
+  weatherDetailDivs[1].append(hpaSpan);
+  weatherDetailDivs[2].append(percentSpan);
 });
