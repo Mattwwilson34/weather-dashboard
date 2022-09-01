@@ -73,11 +73,12 @@ input {
 .weather-card img {
   grid-column: 2;
   justify-self: center;
+  align-self: center;
 }
 
 .temperature,
 .location {
-  grid-column: 2;
+  grid-column: 1/4;
   grid-row: 2;
   font-size: 3rem;
 }
@@ -108,4 +109,5 @@ input {
 
 .weather-detail-data > span {
   font-size: 1rem;
+  margin-left: 0.125rem;
 }
