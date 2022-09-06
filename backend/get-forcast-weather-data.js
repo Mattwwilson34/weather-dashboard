@@ -1,16 +1,12 @@
 import axios from 'axios';
 import { API_KEY } from './global-env-variables.js';
 
-const getForcastWeatherData = async () => {
+const getForcastWeatherData = async (latitude = 35.9, longitude = 78.8) => {
   // set the openWeather endpoint as the target URL
   const openWeatherURL = 'https://api.openweathermap.org/data/2.5/forecast';
 
   // get your key from app.tomorrow.io/development/keys
   const apikey = API_KEY;
-
-  // pick the location, as a latlong pair
-  let lat = 35.994;
-  let lon = -78.898;
 
   // choose the unit system
   const units = 'imperial';
@@ -20,7 +16,7 @@ const getForcastWeatherData = async () => {
 
   try {
     const weatherData = await axios.get(
-      `${openWeatherURL}?lat=${lat}&lon=${lon}&appid=${apikey}&units=${units}&cnt=${timeStamps}`,
+      `${openWeatherURL}?lat=${latitude}&lon=${longitude}&appid=${apikey}&units=${units}&cnt=${timeStamps}`,
     );
     return weatherData.data;
   } catch (error) {

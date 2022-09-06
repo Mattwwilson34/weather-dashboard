@@ -15,8 +15,17 @@ app.use(cors());
 
 app.get('/current', async (req, res) => {
   try {
-    const weatherData = await getCurrentWeatherData();
+    //
+    // get lat + lon from url params
+    const latitude = req.query.lat;
+    const longitude = req.query.lon;
+
+    // get OpenWeather API data
+    const weatherData = await getCurrentWeatherData(latitude, longitude);
+
+    // send data to front-end
     res.send(weatherData);
+    //
   } catch (error) {
     throw new Error(error);
   }
@@ -24,8 +33,17 @@ app.get('/current', async (req, res) => {
 
 app.get('/forcast', async (req, res) => {
   try {
-    const weatherData = await getForcastWeatherData();
+    //
+    // get lat + lon from url params
+    const latitude = req.query.lat;
+    const longitude = req.query.lon;
+
+    // get OpenWeather API data
+    const weatherData = await getForcastWeatherData(latitude, longitude);
+
+    // send data to front-end
     res.send(weatherData);
+    //
   } catch (error) {
     throw new Error(error);
   }
@@ -33,9 +51,16 @@ app.get('/forcast', async (req, res) => {
 
 app.get('/lat-long-from-zip', async (req, res) => {
   try {
+    //
+    // get zip code from url params
     const zipCode = req.query.zipCode;
+
+    // get zipcode data from API
     const latLonData = await getLatLonFromZip(zipCode);
+
+    // send data to front-end
     res.send(latLonData);
+    //
   } catch (error) {
     throw new Error(error);
   }
