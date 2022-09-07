@@ -7,36 +7,20 @@
     <title>Weather App 2.1</title>
   </head>
   <body>
-    <section>
-      <form action="#" id="zip-code-form" class="zip-code-form">
-        <label for="zip-code-input">Enter a Zip Code</label
-        ><input id="zip-code-input" type="text" />
-        <button id="zip-code-submit-btn">submit</button>
-      </form>
-    </section>
-
-    <section>
-      <div class="weather-card">
-        <img
-          src="http://openweathermap.org/img/wn/10d@2x.png"
-          alt="weather-conditions"
-        />
-        <h1 class="temperature">00&#176;</h1>
-        <h2 class="location">Cary</h2>
-        <div class="weather-detail-container">
-          <h3 class="weather-detail-title">Wind</h3>
-          <span class="weather-detail-data">00<span>km</span></span>
+    <main>
+      <section class="dashboard-header-left">
+        <div class="icon">Menu</div>
+        <div class="icon">Alarm</div>
+        <div class="location">Durham, United States</div>
+        <div class="location-input">
+          <input type="text" placeholder="Search by zip code" />
         </div>
-        <div class="weather-detail-container">
-          <h3 class="weather-detail-title">Pressure</h3>
-          <span class="weather-detail-data">00<span>hPa</span></span>
-        </div>
-        <div class="weather-detail-container">
-          <h3 class="weather-detail-title">Humidity</h3>
-          <span class="weather-detail-data">00<span>%</span></span>
-        </div>
-      </div>
-    </section>
+      </section>
+      <section class="dashboard-header-right">
+        <div class="icon">Dark</div>
+        <div class="icon">Profile</div>
+      </section>
+    </main>
     <script src="bundle.js"></script>
   </body>
 </html>
