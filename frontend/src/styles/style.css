@@ -1,6 +1,7 @@
 :root {
   --main-bg-cl: #2f2f2f;
   --main-db-bg-cl: #101014;
+  --main-card-bg-cl: #1b1a1d;
 }
 
 *,
@@ -27,15 +28,19 @@ main {
   border-radius: 25px;
   display: grid;
   grid-template: 1fr 1fr 4fr 4fr / 3fr 1fr;
-  padding: 1rem;
+  padding: 1rem 2rem;
   color: white;
 }
 
 .dashboard-header-left {
   display: grid;
-  grid-template: 1fr / 1fr 1fr 2fr 4fr;
+  grid-template: 1fr / 2fr 4fr;
   align-items: center;
   justify-items: center;
+}
+
+.location {
+  justify-self: left;
 }
 
 .location-input {
@@ -72,4 +77,36 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.weather-timeline {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.weather-card-container {
+  grid-column: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.weather-card {
+  min-width: calc(100% / 6);
+  min-height: 100%;
+  background-color: var(--main-card-bg-cl);
+  border-radius: 25px;
+  padding: 1rem;
+}
+
+.weather-card-details-container {
+  grid-row: 4;
+  padding: 1rem 0;
+}
+
+.weather-card-add-details {
+  background-color: var(--main-card-bg-cl);
+  height: 100%;
+  border-radius: 25px;
+  text-align: center;
 }
