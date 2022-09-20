@@ -13,4 +13,6 @@ const app = {
   },
 };
 
-app.init();
+setTimeout(() => {
+  app.init();
+}, 1000);
