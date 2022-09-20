@@ -7,36 +7,66 @@
     <title>Weather App 2.1</title>
   </head>
   <body>
-    <section>
-      <form action="#" id="zip-code-form" class="zip-code-form">
-        <label for="zip-code-input">Enter a Zip Code</label
-        ><input id="zip-code-input" type="text" />
-        <button id="zip-code-submit-btn">submit</button>
-      </form>
-    </section>
-
-    <section>
-      <div class="weather-card">
-        <img
-          src="http://openweathermap.org/img/wn/10d@2x.png"
-          alt="weather-conditions"
-        />
-        <h1 class="temperature">00&#176;</h1>
-        <h2 class="location">Cary</h2>
-        <div class="weather-detail-container">
-          <h3 class="weather-detail-title">Wind</h3>
-          <span class="weather-detail-data">00<span>km</span></span>
+    <main>
+      <!--  -->
+      <section class="dashboard-header-left">
+        <div class="location">Durham, North Carolina, US</div>
+        <div class="location-input">
+          <input type="text" placeholder="Search by zip code" />
         </div>
-        <div class="weather-detail-container">
-          <h3 class="weather-detail-title">Pressure</h3>
-          <span class="weather-detail-data">00<span>hPa</span></span>
+      </section>
+      <!--  -->
+      <section class="dashboard-header-right">
+        <div class="icon">Dark</div>
+        <div class="icon">Profile</div>
+      </section>
+      <!--  -->
+      <section class="weather-card-container">
+        <div class="weather-card">
+          <h3>Mon</h3>
+          <hr />
+          <img src="" alt="" />
+          <div class="weather-data">10</div>
         </div>
-        <div class="weather-detail-container">
-          <h3 class="weather-detail-title">Humidity</h3>
-          <span class="weather-detail-data">00<span>%</span></span>
+        <div class="weather-card">
+          <h3>Tue</h3>
+          <hr />
+          <img src="" alt="" />
+          <div class="weather-data">10</div>
         </div>
-      </div>
-    </section>
+        <div class="weather-card">
+          <h3>Wed</h3>
+          <hr />
+          <img src="" alt="" />
+          <div class="weather-data">10</div>
+        </div>
+        <div class="weather-card">
+          <h3>Thu</h3>
+          <hr />
+          <img src="" alt="" />
+          <div class="weather-data">10</div>
+        </div>
+        <div class="weather-card">
+          <h3>Fri</h3>
+          <hr />
+          <img src="" alt="" />
+          <div class="weather-data">10</div>
+        </div>
+      </section>
+      <!--  -->
+      <section class="weather-card-details-container">
+        <div class="weather-card-add-details">Monday September 7th</div>
+      </section>
+      <!--  -->
+      <section class="precipitation-graph-container">
+        <div class="precipitation-graph">Precipitation Graph</div>
+      </section>
+      <section class="other-cities-container">
+        <div class="other-cities">City #1</div>
+        <div class="other-cities">City #2</div>
+        <div class="other-cities">City #3</div>
+      </section>
+    </main>
     <script src="bundle.js"></script>
   </body>
 </html>
