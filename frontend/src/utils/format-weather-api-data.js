@@ -1,4 +1,3 @@
-import { default as weatherData } from './mock-api-data/forcast-weather-data.js';
 import moment from 'moment';
 
 const formatTimeStamps = (weatherData) => {
