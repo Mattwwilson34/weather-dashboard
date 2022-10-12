@@ -92,6 +92,14 @@ main {
   background-color: var(--main-card-bg-cl);
   border-radius: 25px;
   padding: 1rem;
+  text-align: center;
+}
+
+.weather-data {
+  font-size: 1.25rem;
+}
+.weather-data::after {
+  content: '\00b0 F';
 }
 
 .weather-card-details-container {
