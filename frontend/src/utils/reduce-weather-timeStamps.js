@@ -11,7 +11,10 @@ const reduceWeatherTimeStamps = (weatherTimeStampsArray, numOfDays = 5) => {
     const dayOfWeek = timeStamp.dt.split(',')[0];
     const reducedDayOfWeek = reducedWeatherArray[indexToCheck].dt.split(',')[0];
 
-    if (dayOfWeek === reducedDayOfWeek) {
+    // store am/pm string to compare
+    const dayOfWeekAmPm = timeStamp.dt.split(',')[2].slice(-2);
+
+    if (dayOfWeek === reducedDayOfWeek || dayOfWeekAmPm === 'am') {
       return;
     } else {
       reducedWeatherArray.push(timeStamp);
