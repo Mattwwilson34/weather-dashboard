@@ -146,6 +146,7 @@ main {
   align-items: center;
   background-color: var(--main-card-bg-cl);
   border-radius: 25px;
+  padding: 0 1.5rem;
 }
 
 .other-cities > * {
