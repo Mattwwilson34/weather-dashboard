@@ -3,6 +3,7 @@ import getWeatherDataFromZip from './modules/get-weather-data-from-zip.js';
 import formatTimeStamps from './utils/format-weather-api-data.js';
 import reduceWeatherTimeStamps from './utils/reduce-weather-timeStamps.js';
 import getRandomZipCode from './utils/random-zipcode-generator.js';
+import getMultiCityCurrentWeather from './utils/multi-city-current-weather.js';
 import css from './styles/style.css';
 /* eslint-disable no-unused-vars */
 
@@ -13,8 +14,10 @@ const app = {
     //
     // Fetch API data
     await this.getData(SEED_ZIP_CODE);
+    this.multiCityData = await getMultiCityCurrentWeather(3);
     this.storeDomElements();
     this.populateData(this.reducedWeatherData);
+    this.populateCityWeatherSuggestions(this.multiCityData);
     this.bindEventListeners();
   },
 
@@ -47,6 +50,7 @@ const app = {
 
   storeDomElements() {
     // DOM Elem
+    // weather card DOM elem
     this.location = document.querySelector('.location');
     this.locationInput = document.querySelector('.location-input > input');
     this.searchBtn = document.querySelector('.search-btn');
@@ -61,6 +65,16 @@ const app = {
     this.weatherTimeStamps = document.querySelectorAll('.time-stamp');
 
     this.iconBaseURL = 'http://openweathermap.org/img/wn/';
+
+    // other-city suggestion DOM elem
+    this.otherCities = document.querySelectorAll('.other-cities');
+    this.otherCityStates = document.querySelectorAll('.other-city-state');
+    this.otherCityIcons = document.querySelectorAll('.other-city-icon');
+    this.otherCityTemps = document.querySelectorAll('.other-city-temp');
+    this.otherCityCities = document.querySelectorAll('.other-city-city');
+    this.otherCityDescriptions = document.querySelectorAll(
+      '.other-city-description',
+    );
   },
 
   async getData(zipCode) {
@@ -104,6 +118,27 @@ const app = {
       this.weatherTimeStamps[
         i
       ].textContent = `${formatedTime[0]}:${formatedTime[2]}`;
+    });
+  },
+
+  populateCityWeatherSuggestions(multiCityData) {
+    console.log(multiCityData);
+    this.otherCities.forEach((city, i) => {
+      this.otherCityStates[i].textContent = multiCityData[i].zipcodeData.state;
+      this.otherCityCities[i].textContent = multiCityData[i].zipcodeData.city;
+
+      // set temps
+      this.otherCityTemps[i].textContent = Math.round(
+        multiCityData[i].main.temp,
+      );
+
+      // set description
+      this.otherCityDescriptions[i].textContent =
+        multiCityData[i].weather[0].description;
+
+      // set icon
+      const iconCode = multiCityData[i].weather[0].icon;
+      this.otherCityIcons[i].src = `${this.iconBaseURL}${iconCode}@2x.png`;
     });
   },
 };
