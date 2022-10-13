@@ -136,9 +136,47 @@ main {
   gap: 2rem;
 }
 
+.other-cities-container > h3 {
+  margin: 0;
+}
+
 .other-cities {
-  text-align: center;
+  display: grid;
+  grid-template: repeat(3, 1fr) / 1fr 1fr;
+  align-items: center;
   background-color: var(--main-card-bg-cl);
   border-radius: 25px;
-  flex: 1;
+}
+
+.other-cities > * {
+  margin: 0;
+  padding: 0;
+}
+
+.other-city-state {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.other-city-description {
+  font-size: 0.9rem;
+}
+
+.other-city-icon {
+  max-height: 70px;
+  max-width: 70px;
+  grid-column: 2;
+  grid-row-start: 1;
+  grid-row-end: span 2;
+  justify-self: center;
+}
+
+.other-city-temp {
+  grid-row: 3;
+  grid-column: 2;
+  justify-self: center;
+}
+
+.other-city-temp:after {
+  content: '\00b0 F';
 }
