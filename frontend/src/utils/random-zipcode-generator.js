@@ -1,4 +1,4 @@
-import zipcodeData from './zipcode-data/USCities.json';
+import zipcodeData from './zipcode-data/USCities.js';
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
