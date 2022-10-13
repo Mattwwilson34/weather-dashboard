@@ -13,7 +13,7 @@ const getMultiCityCurrentWeather = async (numberOfCities) => {
     const { latitude, longitude } = latLonData.data.location[0];
     zipcodeData.push(latLonData.data.location[0]);
     weatherPromises.push(getCurrentWeatherData(latitude, longitude));
-    await delay(1000);
+    await delay(500);
   }
 
   const ajaxWeatherData = await Promise.all(weatherPromises);
