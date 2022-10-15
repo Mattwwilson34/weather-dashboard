@@ -24,6 +24,25 @@ const app = {
   bindEventListeners() {
     this.searchBtn.addEventListener('click', this.search.bind(this));
     this.randomBtn.addEventListener('click', this.randomWeather.bind(this));
+    this.weatherCards.forEach((card) => {
+      card.addEventListener('click', this.expandWeatherCard);
+    });
+  },
+
+  expandWeatherCard(event) {
+    let card = event.target;
+    if (!card.classList.contains('weather-card')) {
+      card = event.target.parentElement;
+    }
+
+    if (card.classList.contains('weather-card-focus')) {
+      return;
+    } else {
+      app.weatherCards.forEach((card) => {
+        card.classList.remove('weather-card-focus');
+      });
+      card.classList.toggle('weather-card-focus');
+    }
   },
 
   async search() {
