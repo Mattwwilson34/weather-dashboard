@@ -107,6 +107,9 @@ main {
 
 .weather-card-details-container {
   grid-row: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .weather-card-details-container h3 {
@@ -115,7 +118,7 @@ main {
 
 .weather-card-add-details {
   background-color: var(--main-card-bg-cl);
-  height: 95%;
+  height: 87.5%;
   border-radius: 25px;
   text-align: center;
 }
@@ -126,7 +129,6 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 0.325rem;
 }
 
 .other-cities-container > h3 {
@@ -141,6 +143,7 @@ main {
   background-color: var(--main-card-bg-cl);
   border-radius: 25px;
   padding: 0 1.5rem;
+  min-height: 25%;
 }
 
 .other-cities > * {
