@@ -4,6 +4,11 @@ import formatTimeStamps from './utils/format-weather-api-data.js';
 import reduceWeatherTimeStamps from './utils/reduce-weather-timeStamps.js';
 import getRandomZipCode from './utils/random-zipcode-generator.js';
 import getMultiCityCurrentWeather from './utils/multi-city-current-weather.js';
+
+// MOCK data import to reduce API calls
+import MOCK_FORCAST_ZIPCODE_COMBINED_API_DATA from './utils/mock-api-data/forcast-zipcode-combined-data.js';
+import MOCK_CURRENT_WEATHER_THREE_LOCATIONS from './utils/mock-api-data/current-weather-three-locations-data.js';
+
 import css from './styles/style.css';
 /* eslint-disable no-unused-vars */
 
@@ -13,8 +18,13 @@ const app = {
   async init() {
     //
     // Fetch API data
+    //! currently using mock API data
     await this.getData(SEED_ZIP_CODE);
-    this.multiCityData = await getMultiCityCurrentWeather(3);
+
+    //! currently using mock API data
+    // this.multiCityData = await getMultiCityCurrentWeather(3);
+    this.multiCityData = MOCK_CURRENT_WEATHER_THREE_LOCATIONS;
+
     this.storeDomElements();
     this.populateData(this.reducedWeatherData);
     this.populateCityWeatherSuggestions(this.multiCityData);
@@ -98,12 +108,16 @@ const app = {
 
   async getData(zipCode) {
     // Fetch API data
-    this.weatherData = await getWeatherDataFromZip(zipCode);
+    // this.weatherData = await getWeatherDataFromZip(zipCode);
+    //! get mock api data
+    this.weatherData = MOCK_FORCAST_ZIPCODE_COMBINED_API_DATA;
 
     console.log(this.weatherData);
+    // Use moment to format timeStamp from unix
     const formatedWeatherData = formatTimeStamps(
       this.weatherData.forcastWeatherData.data,
     );
+    // Reduce number of time stamps to 1/day
     this.reducedWeatherData = reduceWeatherTimeStamps(formatedWeatherData, 5);
     console.log(formatedWeatherData);
     console.log(this.reducedWeatherData);
