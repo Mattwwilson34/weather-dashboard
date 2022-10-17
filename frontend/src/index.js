@@ -5,6 +5,7 @@ import reduceWeatherTimeStamps from './utils/reduce-weather-timeStamps.js';
 import getRandomZipCode from './utils/random-zipcode-generator.js';
 import getMultiCityCurrentWeather from './utils/multi-city-current-weather.js';
 import reduceWeatherTimeStampsToSingleDay from './utils/reduce-to-one-day-forecast.js';
+import delay from './utils/delay.js';
 
 // MOCK data import to reduce API calls
 import MOCK_FORCAST_ZIPCODE_COMBINED_API_DATA from './utils/mock-api-data/forcast-zipcode-combined-data.js';
@@ -14,6 +15,13 @@ import css from './styles/style.css';
 /* eslint-disable no-unused-vars */
 
 const SEED_ZIP_CODE = 27703;
+
+(async () => {
+  await delay(2000);
+  document.querySelector('.loading-header').classList.add('hidden');
+  document.querySelector('.loading').classList.add('hidden');
+  document.querySelector('main').classList.remove('hidden');
+})();
 
 const app = {
   async init() {
@@ -46,7 +54,11 @@ const app = {
     let card = event.target;
 
     // if child element clicked on grab parent elem
-    if (!card.classList.contains('weather-card')) {
+    if (
+      card.parentElement.classList.contains('weather-card-expandable-stats')
+    ) {
+      card = event.target.parentElement.parentElement;
+    } else if (!card.classList.contains('weather-card')) {
       card = event.target.parentElement;
     }
 
@@ -58,8 +70,29 @@ const app = {
     else {
       this.weatherCards.forEach((card) => {
         card.classList.remove('weather-card-focus');
+        card.classList.remove('no-hover');
       });
+
+      this.expandableStats.forEach((stat) => {
+        stat.classList.add('hidden');
+      });
+
+      // Get all expandable stats dom elem
+      const expandableStats = [];
+      Array.from(card.children).forEach((child) => {
+        if (!child.classList.contains('weather-card-expandable-stats')) return;
+        expandableStats.push(child);
+      });
+
+      // toggle off hidden class
+      expandableStats.forEach((stat) => {
+        stat.classList.toggle('hidden');
+      });
+
+      // ?
+
       card.classList.toggle('weather-card-focus');
+      card.classList.toggle('no-hover');
       this.setActiveWeatherCard();
       this.updateWeatherDetailsDisplay();
     }
@@ -105,12 +138,18 @@ const app = {
     this.randomBtn = document.querySelector('.random-btn');
     this.weatherCards = document.querySelectorAll('.weather-card');
     this.dayOfWeek = document.querySelectorAll('.weather-card > h3');
-    this.weatherIcons = document.querySelectorAll('.weather-card > img');
+    this.weatherIcons = document.querySelectorAll('.weather-card-icon');
     this.weatherDataDescriptions = document.querySelectorAll(
       '.weather-description',
     );
     this.weatherDataDivs = document.querySelectorAll('.weather-data');
-    this.weatherTimeStamps = document.querySelectorAll('.time-stamp');
+    this.expandableStats = document.querySelectorAll(
+      '.weather-card-expandable-stats',
+    );
+    this.humidity = document.querySelectorAll('.humidity-span');
+    this.wind = document.querySelectorAll('.wind-span');
+    this.windDirection = document.querySelectorAll('.wind-direction-span');
+    this.windGust = document.querySelectorAll('.wind-gust-span');
 
     this.iconBaseURL = 'http://openweathermap.org/img/wn/';
 
@@ -135,9 +174,9 @@ const app = {
 
   async getData(zipCode) {
     // Fetch API data
-    // this.weatherData = await getWeatherDataFromZip(zipCode);
+    this.weatherData = await getWeatherDataFromZip(zipCode);
     //! get mock api data
-    this.weatherData = MOCK_FORCAST_ZIPCODE_COMBINED_API_DATA;
+    // this.weatherData = MOCK_FORCAST_ZIPCODE_COMBINED_API_DATA;
 
     console.log(this.weatherData);
     // Use moment to format timeStamp from unix
@@ -172,12 +211,18 @@ const app = {
       this.weatherDataDescriptions[i].textContent =
         reducedWeatherData[i].weather[0].description;
 
-      // format time
-      const formatedTime = reducedWeatherData[i].dt.split(',')[2].split(':');
+      this.humidity[i].textContent = reducedWeatherData[i].main.humidity;
 
-      this.weatherTimeStamps[
-        i
-      ].textContent = `${formatedTime[0]}:${formatedTime[2]}`;
+      this.wind[i].textContent = `${Math.round(
+        reducedWeatherData[i].wind.speed,
+      )} mph`;
+
+      this.windDirection[i].textContent = this.cardinalDirectionFromDegrees(
+        reducedWeatherData[i].wind.deg,
+      );
+      this.windGust[i].textContent = `up to ${Math.round(
+        reducedWeatherData[i].wind.gust,
+      )} mph`;
     });
   },
 
@@ -256,6 +301,17 @@ const app = {
     }
 
     this.weatherCardAddDetails.replaceChildren(...barContainerArray);
+  },
+
+  cardinalDirectionFromDegrees(degrees) {
+    if (degrees === 0) return 'N';
+    if (degrees > 0 && degrees < 90) return 'NE';
+    if (degrees === 90) return 'E';
+    if (degrees > 90 && degrees < 180) return 'SE';
+    if (degrees === 180) return 'S';
+    if (degrees > 180 && degrees < 270) return 'SW';
+    if (degrees === 270) return 'W';
+    if (degrees > 270 && degrees < 360) return 'NW';
   },
 };
 
