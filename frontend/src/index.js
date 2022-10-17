@@ -118,6 +118,9 @@ const app = {
     this.weatherCardAddDetails = document.querySelector(
       '.weather-card-add-details',
     );
+    this.weatherCardAddDetailsHeaderDayOfWeek = document.querySelector(
+      '.weather-deatils-header-day-of-week',
+    );
 
     // other-city suggestion DOM elem
     this.otherCities = document.querySelectorAll('.other-cities');
@@ -204,6 +207,9 @@ const app = {
       this.weatherData.forcastWeatherData.data,
       this.activeDayOfWeek,
     );
+
+    this.weatherCardAddDetailsHeaderDayOfWeek.textContent =
+      this.activeDayOfWeek;
 
     let barContainerArray = [];
 
