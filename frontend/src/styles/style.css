@@ -15,9 +15,34 @@ body {
   margin: 0;
   background-color: var(--main-bg-cl);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-family: 'Nunito', sans-serif;
+}
+
+/* Spinner */
+
+.loading {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 main {
@@ -90,20 +115,87 @@ main {
 
 .weather-card {
   flex: 1;
-  min-height: 100%;
   min-width: 15%;
   background-color: var(--main-card-bg-cl);
   border-radius: 25px;
   padding: 1rem;
   text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.weather-card:hover {
+  cursor: pointer;
+  background-color: #252427;
+  transform: translateY(-3px);
+}
+
+.weather-card-header {
+  grid-area: header;
+}
+.weather-card-hr {
+  grid-area: hr;
+  align-self: flex-start;
+  width: 100%;
 }
 
 .weather-data {
+  grid-area: temp;
   font-size: 1.25rem;
 }
 .weather-data::after {
   content: '\00b0 F';
 }
+
+.weather-card-icon {
+  grid-area: icon;
+  justify-self: center;
+}
+
+.weather-card-description {
+  grid-area: description;
+}
+
+.time-stamp {
+  grid-area: time;
+}
+
+.humidity {
+  grid-area: humidity;
+}
+
+.humidity-span::after {
+  content: '\0025';
+}
+
+.wind {
+  grid-area: wind;
+}
+
+.sunrise {
+  grid-area: sunrise;
+}
+
+.sunset {
+  grid-area: sunset;
+}
+
+.weather-card-expandable-stats-container {
+  display: inline-grid;
+  grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+}
+
+.weather-card-expandable-stats {
+  font-size: 0.75rem;
+}
+
+.weather-card-exapndable-stats-icon {
+  margin: auto;
+  display: block;
+  width: 25px;
+  fill: blue;
+}
+
+/* Weather card details */
 
 .weather-card-details-container {
   grid-row: 3;
@@ -209,7 +301,30 @@ main {
 /* UTILITY CLASSES */
 
 .weather-card-focus {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 55px;
+  grid-auto-rows: auto;
+  grid-template-areas:
+    'header header header header'
+    'hr hr hr hr'
+    'temp icon icon description'
+    'humidity wind sunrise sunset';
+  align-items: center;
+  min-width: 350px;
   background-color: white;
   color: black;
   border: 1px solid black;
+}
+
+.inline {
+  display: inline;
+}
+
+.hidden {
+  display: none;
+}
+
+.no-hover {
+  pointer-events: none;
 }
