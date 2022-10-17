@@ -118,10 +118,37 @@ main {
 
 .weather-card-add-details {
   background-color: var(--main-card-bg-cl);
+  padding-top: 1rem;
   height: 87.5%;
   border-radius: 25px;
   text-align: center;
+  display: flex;
+  justify-content: space-around;
 }
+
+.temperature-bar-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.temperature-bar-container h4 {
+  margin-top: auto;
+}
+
+.temp-bar-header::after {
+  content: '\00b0';
+}
+
+.temperature-bar {
+  background-color: rgb(91, 91, 211);
+  height: 50px;
+  width: 25px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+/* Section */
 
 .other-cities-container {
   grid-row: 3;

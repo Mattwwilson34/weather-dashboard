@@ -4,6 +4,7 @@ import formatTimeStamps from './utils/format-weather-api-data.js';
 import reduceWeatherTimeStamps from './utils/reduce-weather-timeStamps.js';
 import getRandomZipCode from './utils/random-zipcode-generator.js';
 import getMultiCityCurrentWeather from './utils/multi-city-current-weather.js';
+import reduceWeatherTimeStampsToSingleDay from './utils/reduce-to-one-day-forecast.js';
 
 // MOCK data import to reduce API calls
 import MOCK_FORCAST_ZIPCODE_COMBINED_API_DATA from './utils/mock-api-data/forcast-zipcode-combined-data.js';
@@ -27,6 +28,8 @@ const app = {
 
     this.storeDomElements();
     this.populateData(this.reducedWeatherData);
+    this.setActiveWeatherCard();
+    this.updateWeatherDetailsDisplay();
     this.populateCityWeatherSuggestions(this.multiCityData);
     this.bindEventListeners();
   },
@@ -35,23 +38,30 @@ const app = {
     this.searchBtn.addEventListener('click', this.search.bind(this));
     this.randomBtn.addEventListener('click', this.randomWeather.bind(this));
     this.weatherCards.forEach((card) => {
-      card.addEventListener('click', this.expandWeatherCard);
+      card.addEventListener('click', this.focusWeatherCard.bind(this));
     });
   },
 
-  expandWeatherCard(event) {
+  focusWeatherCard(event) {
     let card = event.target;
+
+    // if child element clicked on grab parent elem
     if (!card.classList.contains('weather-card')) {
       card = event.target.parentElement;
     }
 
+    // if card already in focus
     if (card.classList.contains('weather-card-focus')) {
       return;
-    } else {
-      app.weatherCards.forEach((card) => {
+    }
+    // remove focus from all cards and then add focus
+    else {
+      this.weatherCards.forEach((card) => {
         card.classList.remove('weather-card-focus');
       });
       card.classList.toggle('weather-card-focus');
+      this.setActiveWeatherCard();
+      this.updateWeatherDetailsDisplay();
     }
   },
 
@@ -77,6 +87,15 @@ const app = {
     this.populateData(this.reducedWeatherData);
   },
 
+  setActiveWeatherCard() {
+    this.weatherCards.forEach((card) => {
+      if (!card.classList.contains('weather-card-focus')) return;
+
+      this.activeWeatherCard = card;
+      this.activeDayOfWeek = card.children[0].textContent;
+    });
+  },
+
   storeDomElements() {
     // DOM Elem
     // weather card DOM elem
@@ -94,6 +113,14 @@ const app = {
     this.weatherTimeStamps = document.querySelectorAll('.time-stamp');
 
     this.iconBaseURL = 'http://openweathermap.org/img/wn/';
+
+    // weather details DOM elem
+    this.weatherCardAddDetails = document.querySelector(
+      '.weather-card-add-details',
+    );
+    this.weatherCardAddDetailsHeaderDayOfWeek = document.querySelector(
+      '.weather-deatils-header-day-of-week',
+    );
 
     // other-city suggestion DOM elem
     this.otherCities = document.querySelectorAll('.other-cities');
@@ -173,6 +200,62 @@ const app = {
       const iconCode = multiCityData[i].weather[0].icon;
       this.otherCityIcons[i].src = `${this.iconBaseURL}${iconCode}@2x.png`;
     });
+  },
+
+  updateWeatherDetailsDisplay() {
+    const singleDayForcast = reduceWeatherTimeStampsToSingleDay(
+      this.weatherData.forcastWeatherData.data,
+      this.activeDayOfWeek,
+    );
+
+    this.weatherCardAddDetailsHeaderDayOfWeek.textContent =
+      this.activeDayOfWeek;
+
+    let barContainerArray = [];
+
+    for (let index = 0; index < singleDayForcast.length; index++) {
+      //
+      // Bar containers
+      const tempBarContainer = document.createElement('div');
+      tempBarContainer.classList.add('temperature-bar-container');
+
+      // Bar headers time
+      const tempBarHeaderTime = document.createElement('h3');
+      tempBarHeaderTime.classList.add('temp-bar-header-time');
+      tempBarHeaderTime.textContent = `${
+        singleDayForcast[index].dt.split(',')[2].split(':')[0]
+      }`;
+
+      // AM/PM
+      const amPm = document.createElement('div');
+      amPm.classList.add('tempBarAmPm');
+      amPm.textContent = `${singleDayForcast[index].dt
+        .split(',')[2]
+        .split(':')[2]
+        .split(' ')[1]
+        .toUpperCase()}`;
+
+      // Bar headers temp
+      const tempBarHeader = document.createElement('h4');
+      tempBarHeader.classList.add('temp-bar-header');
+      tempBarHeader.textContent = `${Math.round(
+        singleDayForcast[index].main.temp,
+      )}`;
+
+      // Bars
+      const tempBar = document.createElement('div');
+      tempBar.classList.add('temperature-bar');
+      ``;
+      tempBar.style.height = `${
+        (singleDayForcast[index].main.temp / 150) * 100
+      }%`;
+
+      // Append
+      tempBarContainer.append(tempBarHeaderTime, amPm, tempBarHeader, tempBar);
+      barContainerArray.push(tempBarContainer);
+    }
+
+    this.weatherCardAddDetails.replaceChildren(...barContainerArray);
   },
 };
 
