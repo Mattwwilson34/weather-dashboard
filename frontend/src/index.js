@@ -1,21 +1,28 @@
 /* eslint-disable no-unused-vars */
+
+// API imports
 import getWeatherDataFromZip from './modules/get-weather-data-from-zip.js';
+import getMultiCityCurrentWeather from './utils/multi-city-current-weather.js';
+
+// Utility imports
 import formatTimeStamps from './utils/format-weather-api-data.js';
 import reduceWeatherTimeStamps from './utils/reduce-weather-timeStamps.js';
-import getRandomZipCode from './utils/random-zipcode-generator.js';
-import getMultiCityCurrentWeather from './utils/multi-city-current-weather.js';
 import reduceWeatherTimeStampsToSingleDay from './utils/reduce-to-one-day-forecast.js';
+import getRandomZipCode from './utils/random-zipcode-generator.js';
 import delay from './utils/delay.js';
 
-// MOCK data import to reduce API calls
+// Mock data imports
 import MOCK_FORCAST_ZIPCODE_COMBINED_API_DATA from './utils/mock-api-data/forcast-zipcode-combined-data.js';
 import MOCK_CURRENT_WEATHER_THREE_LOCATIONS from './utils/mock-api-data/current-weather-three-locations-data.js';
 
+// Style sheet imports
 import css from './styles/style.css';
+
 /* eslint-disable no-unused-vars */
 
 const SEED_ZIP_CODE = 27703;
 
+// Delay app display to give API time to respond with data
 (async () => {
   await delay(2000);
   document.querySelector('.loading-header').classList.add('hidden');
@@ -26,13 +33,16 @@ const SEED_ZIP_CODE = 27703;
 const app = {
   async init() {
     //
-    // Fetch API data
-    //! currently using mock API data
+    // get weather card data
     await this.getData(SEED_ZIP_CODE);
 
-    //! currently using mock API data
-    // this.multiCityData = await getMultiCityCurrentWeather(3);
-    this.multiCityData = MOCK_CURRENT_WEATHER_THREE_LOCATIONS;
+    // get other city weather suggestion data
+
+    // comment out line below to use mock data over API calls
+    this.multiCityData = await getMultiCityCurrentWeather(3);
+
+    // uncomment line below to use mock data over API calls
+    // this.multiCityData = MOCK_CURRENT_WEATHER_THREE_LOCATIONS;
 
     this.storeDomElements();
     this.populateData(this.reducedWeatherData);
@@ -53,7 +63,7 @@ const app = {
   focusWeatherCard(event) {
     let card = event.target;
 
-    // if child element clicked on grab parent elem
+    // if child element clicked on get parent elem
     if (
       card.parentElement.classList.contains('weather-card-expandable-stats')
     ) {
@@ -62,22 +72,24 @@ const app = {
       card = event.target.parentElement;
     }
 
-    // if card already in focus
+    // if card already in focus return
     if (card.classList.contains('weather-card-focus')) {
       return;
     }
-    // remove focus from all cards and then add focus
+
+    // remove focus / no-hover from all cards
     else {
       this.weatherCards.forEach((card) => {
         card.classList.remove('weather-card-focus');
         card.classList.remove('no-hover');
       });
 
+      // add focus to card
       this.expandableStats.forEach((stat) => {
         stat.classList.add('hidden');
       });
 
-      // Get all expandable stats dom elem
+      // get all expandable stats dom elem
       const expandableStats = [];
       Array.from(card.children).forEach((child) => {
         if (!child.classList.contains('weather-card-expandable-stats')) return;
@@ -88,8 +100,6 @@ const app = {
       expandableStats.forEach((stat) => {
         stat.classList.toggle('hidden');
       });
-
-      // ?
 
       card.classList.toggle('weather-card-focus');
       card.classList.toggle('no-hover');
@@ -130,8 +140,8 @@ const app = {
   },
 
   storeDomElements() {
-    // DOM Elem
-    // weather card DOM elem
+    //
+    // weather card DOM elements
     this.location = document.querySelector('.location');
     this.locationInput = document.querySelector('.location-input > input');
     this.searchBtn = document.querySelector('.search-btn');
@@ -143,6 +153,8 @@ const app = {
       '.weather-description',
     );
     this.weatherDataDivs = document.querySelectorAll('.weather-data');
+
+    // weather card expandable stats
     this.expandableStats = document.querySelectorAll(
       '.weather-card-expandable-stats',
     );
@@ -151,9 +163,10 @@ const app = {
     this.windDirection = document.querySelectorAll('.wind-direction-span');
     this.windGust = document.querySelectorAll('.wind-gust-span');
 
+    // weather card icon base URL
     this.iconBaseURL = 'http://openweathermap.org/img/wn/';
 
-    // weather details DOM elem
+    // weather details DOM elements
     this.weatherCardAddDetails = document.querySelector(
       '.weather-card-add-details',
     );
@@ -161,7 +174,7 @@ const app = {
       '.weather-deatils-header-day-of-week',
     );
 
-    // other-city suggestion DOM elem
+    // other-city suggestion DOM elements
     this.otherCities = document.querySelectorAll('.other-cities');
     this.otherCityStates = document.querySelectorAll('.other-city-state');
     this.otherCityIcons = document.querySelectorAll('.other-city-icon');
@@ -173,53 +186,62 @@ const app = {
   },
 
   async getData(zipCode) {
-    // Fetch API data
+    //
+    // get API data (comment out line below to us mock data over API)
     this.weatherData = await getWeatherDataFromZip(zipCode);
-    //! get mock api data
+
+    // get mock api data (uncomment line below to use mock data over API)
     // this.weatherData = MOCK_FORCAST_ZIPCODE_COMBINED_API_DATA;
 
-    console.log(this.weatherData);
     // Use moment to format timeStamp from unix
     const formatedWeatherData = formatTimeStamps(
       this.weatherData.forcastWeatherData.data,
     );
+
     // Reduce number of time stamps to 1/day
     this.reducedWeatherData = reduceWeatherTimeStamps(formatedWeatherData, 5);
-    console.log(formatedWeatherData);
-    console.log(this.reducedWeatherData);
   },
 
   populateData(reducedWeatherData) {
     //
-    // Update location
+    // update location
     const { city, country, state } =
       this.weatherData.zipCodeData.data.location[0];
     this.location.textContent = `${city} ${state}, ${country}`;
 
-    // Fill weather cards with API data
+    // fill weather cards with API data
     this.weatherCards.forEach((card, i) => {
       //
+      // day of the week
       this.dayOfWeek[i].textContent = reducedWeatherData[i].dt.split(',')[0];
 
+      // weather icon
       const iconCode = reducedWeatherData[i].weather[0].icon;
       this.weatherIcons[i].src = `${this.iconBaseURL}${iconCode}@2x.png`;
 
+      // temperature
       this.weatherDataDivs[i].textContent = Math.round(
         reducedWeatherData[i].main.temp,
       );
 
+      // description of weather
       this.weatherDataDescriptions[i].textContent =
         reducedWeatherData[i].weather[0].description;
 
+      // humidity
       this.humidity[i].textContent = reducedWeatherData[i].main.humidity;
 
+      // wind
       this.wind[i].textContent = `${Math.round(
         reducedWeatherData[i].wind.speed,
       )} mph`;
 
+      // wind direction
       this.windDirection[i].textContent = this.cardinalDirectionFromDegrees(
         reducedWeatherData[i].wind.deg,
       );
+
+      // wind gusts
       this.windGust[i].textContent = `up to ${Math.round(
         reducedWeatherData[i].wind.gust,
       )} mph`;
@@ -227,9 +249,13 @@ const app = {
   },
 
   populateCityWeatherSuggestions(multiCityData) {
-    console.log(multiCityData);
+    //
     this.otherCities.forEach((city, i) => {
+      //
+      // set state
       this.otherCityStates[i].textContent = multiCityData[i].zipcodeData.state;
+
+      // set city
       this.otherCityCities[i].textContent = multiCityData[i].zipcodeData.city;
 
       // set temps
@@ -237,25 +263,28 @@ const app = {
         multiCityData[i].main.temp,
       );
 
-      // set description
+      // set descriptions
       this.otherCityDescriptions[i].textContent =
         multiCityData[i].weather[0].description;
 
-      // set icon
+      // set icons
       const iconCode = multiCityData[i].weather[0].icon;
       this.otherCityIcons[i].src = `${this.iconBaseURL}${iconCode}@2x.png`;
     });
   },
 
   updateWeatherDetailsDisplay() {
+    //
     const singleDayForcast = reduceWeatherTimeStampsToSingleDay(
       this.weatherData.forcastWeatherData.data,
       this.activeDayOfWeek,
     );
 
+    // update details day of the week
     this.weatherCardAddDetailsHeaderDayOfWeek.textContent =
       this.activeDayOfWeek;
 
+    // array to hold temperature bar html elements
     let barContainerArray = [];
 
     for (let index = 0; index < singleDayForcast.length; index++) {
