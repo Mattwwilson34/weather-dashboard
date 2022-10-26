@@ -19,7 +19,7 @@ Complete
 
 ## Project Screen Shot(s)
 
-#### Example:
+![ezgif com-gif-maker (10)](https://user-images.githubusercontent.com/49503056/198144731-72dbde93-85c4-41ab-8a86-1d23e502a41e.gif)
 
 ## Installation and Setup Instructions
 
@@ -54,8 +54,6 @@ To Visit App:
 
 ## Reflection
 
----
-
 ### What was the context for this project? (ie: was this a side project? was this for Turing? was this for an experiment?)
 
 - The context of this project was to review and practice my javascript, HTML, and CSS skills. The goal was to avoid frame-works and stick to vanilla JS.
@@ -66,7 +64,7 @@ To Visit App:
 
 ### Why was this project challenging and therefore a really good learning experience?
 
--This project was challenging because it required multiple API calls in a row to receive the data I wanted to show my user. The project also required that I build a backend server so that I could leverage a .env file to protect my API keys. Making sure that all these moving parts worked together and proper error handling and user communication was a great learning experience.
+- This project was challenging because it required multiple API calls in a row to receive the data I wanted to show my user. The project also required that I build a backend server so that I could leverage a .env file to protect my API keys. Making sure that all these moving parts worked together and proper error handling and user communication was a great learning experience.
 
 ### What were some unexpected obstacles?
 
