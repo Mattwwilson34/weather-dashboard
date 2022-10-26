@@ -24,7 +24,7 @@ const SEED_ZIP_CODE = 27703;
 
 // Delay app display to give API time to respond with data
 (async () => {
-  await delay(2000);
+  await delay(6000);
   document.querySelector('.loading-header').classList.add('hidden');
   document.querySelector('.loading').classList.add('hidden');
   document.querySelector('main').classList.remove('hidden');
@@ -188,7 +188,13 @@ const app = {
   async getData(zipCode) {
     //
     // get API data (comment out line below to us mock data over API)
-    this.weatherData = await getWeatherDataFromZip(zipCode);
+    try {
+      this.weatherData = await getWeatherDataFromZip(zipCode);
+    } catch (error) {
+      if (error) {
+        alert('Zipcode not found try another please.');
+      }
+    }
 
     // get mock api data (uncomment line below to use mock data over API)
     // this.weatherData = MOCK_FORCAST_ZIPCODE_COMBINED_API_DATA;
