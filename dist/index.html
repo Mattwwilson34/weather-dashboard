@@ -12,64 +12,241 @@
       rel="stylesheet"
     />
   </head>
+
+  <!-- style added to html file to avoid waiting for webpack css assets -->
+
+  <style>
+    body {
+      background-color: #2f2f2f;
+    }
+
+    main {
+      display: none;
+    }
+  </style>
+
+  <!-- End of style tag -->
+
   <body>
-    <main>
-      <!--  -->
+    <!-- pre-app loading visualization -->
+    <h1 class="loading-header">The weather app is loading</h1>
+    <div class="loading"></div>
+    <!-- ... -->
+
+    <main class="hidden">
+      <!-- dashboard header left -->
       <section class="dashboard-header-left">
         <div class="location">Durham, North Carolina, US</div>
         <div class="location-input">
           <input type="text" placeholder="Search by zip code" />
         </div>
       </section>
-      <!--  -->
+
+      <!-- dashboard header right -->
       <section class="dashboard-header-right">
         <button class="search-btn">Search</button>
         <button class="search-btn random-btn">Random Weather</button>
       </section>
-      <!--  -->
+
+      <!-- weather cards -->
       <section class="weather-card-container">
-        <div class="weather-card weather-card-focus">
-          <h3>Mon</h3>
-          <hr />
-          <img src="" alt="" />
+        <!-- card #1 -->
+        <div class="weather-card weather-card-focus no-hover">
+          <h3 class="weather-card-header">Mon</h3>
+          <hr class="weather-card-hr" />
+          <img class="weather-card-icon" src="" alt="" />
           <div class="weather-data">10</div>
           <p class="weather-description">Lorem ipsum dolor sit amet.</p>
-          <p class="time-stamp">2:00pm</p>
+          <p class="weather-card-expandable-stats humidity">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/humidity.svg"
+              alt="humidity"
+            /><span class="humidity-span">50%</span>
+          </p>
+          <p class="weather-card-expandable-stats wind">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/wind.svg"
+              alt="wind"
+            />
+            <span class="wind-span">NE 8/mph</span>
+          </p>
+          <p class="weather-card-expandable-stats wind-direction">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/compass.svg"
+              alt="compass"
+            />
+            <span class="wind-direction-span">NE</span>
+          </p>
+          <p class="weather-card-expandable-stats wind-gust">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/wind-gust.svg"
+              alt="wind"
+            /><span class="wind-gust-span">up to 20 mph</span>
+          </p>
         </div>
+
+        <!-- card #2 -->
         <div class="weather-card">
-          <h3>Tue</h3>
-          <hr />
-          <img src="" alt="" />
+          <h3 class="weather-card-header">Tue</h3>
+          <hr class="weather-card-hr" />
+          <img class="weather-card-icon" src="" alt="" />
           <div class="weather-data">10</div>
           <p class="weather-description">Lorem ipsum dolor sit amet.</p>
-          <p class="time-stamp">2:00pm</p>
+          <p class="weather-card-expandable-stats hidden humidity">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/humidity.svg"
+              alt="humidity"
+            /><span class="humidity-span">50%</span>
+          </p>
+          <p class="weather-card-expandable-stats hidden wind">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/wind.svg"
+              alt="wind"
+            />
+            <span class="wind-span">NE 8/mph</span>
+          </p>
+          <p class="weather-card-expandable-stats hidden wind-direction">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/compass.svg"
+              alt="wind"
+            />
+            <span class="wind-direction-span"></span>
+          </p>
+          <p class="weather-card-expandable-stats hidden wind-gust">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/wind-gust.svg"
+              alt="wind"
+            /><span class="wind-gust-span">up to 20 mph</span>
+          </p>
         </div>
+
+        <!-- card #3 -->
         <div class="weather-card">
-          <h3>Wed</h3>
-          <hr />
-          <img src="" alt="" />
+          <h3 class="weather-card-header">Wed</h3>
+          <hr class="weather-card-hr" />
+          <img class="weather-card-icon" src="" alt="" />
           <div class="weather-data">10</div>
           <p class="weather-description">Lorem ipsum dolor sit amet.</p>
-          <p class="time-stamp">2:00pm</p>
+          <p class="weather-card-expandable-stats hidden humidity">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/humidity.svg"
+              alt="humidity"
+            /><span class="humidity-span">50%</span>
+          </p>
+          <p class="weather-card-expandable-stats hidden wind">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/wind.svg"
+              alt="wind"
+            />
+            <span class="wind-span">NE 8/mph</span>
+          </p>
+          <p class="weather-card-expandable-stats hidden wind-direction">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/compass.svg"
+              alt="wind"
+            />
+            <span class="wind-direction-span"></span>
+          </p>
+          <p class="weather-card-expandable-stats hidden wind-gust">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/wind-gust.svg"
+              alt="wind"
+            /><span class="wind-gust-span">up to 20 mph</span>
+          </p>
         </div>
+
+        <!-- card #4 -->
         <div class="weather-card">
-          <h3>Thu</h3>
-          <hr />
-          <img src="" alt="" />
+          <h3 class="weather-card-header">Thu</h3>
+          <hr class="weather-card-hr" />
+          <img class="weather-card-icon" src="" alt="" />
           <div class="weather-data">10</div>
           <p class="weather-description">Lorem ipsum dolor sit amet.</p>
-          <p class="time-stamp">2:00pm</p>
+          <p class="weather-card-expandable-stats hidden humidity">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/humidity.svg"
+              alt="humidity"
+            /><span class="humidity-span">50%</span>
+          </p>
+          <p class="weather-card-expandable-stats hidden wind">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/wind.svg"
+              alt="wind"
+            />
+            <span class="wind-span">NE 8/mph</span>
+          </p>
+          <p class="weather-card-expandable-stats hidden wind-direction">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/compass.svg"
+              alt="wind"
+            />
+            <span class="wind-direction-span"></span>
+          </p>
+          <p class="weather-card-expandable-stats hidden wind-gust">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/wind-gust.svg"
+              alt="wind"
+            /><span class="wind-gust-span">up to 20 mph</span>
+          </p>
         </div>
+
+        <!-- card #5 -->
         <div class="weather-card">
-          <h3>Fri</h3>
-          <hr />
-          <img src="" alt="" />
+          <h3 class="weather-card-header">Fri</h3>
+          <hr class="weather-card-hr" />
+          <img class="weather-card-icon" src="" alt="" />
           <div class="weather-data">10</div>
           <p class="weather-description">Lorem ipsum dolor sit amet.</p>
-          <p class="time-stamp">2:00pm</p>
+          <p class="weather-card-expandable-stats hidden humidity">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/humidity.svg"
+              alt="humidity"
+            /><span class="humidity-span">50%</span>
+          </p>
+          <p class="weather-card-expandable-stats hidden wind">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/wind.svg"
+              alt="wind"
+            />
+            <span class="wind-span">NE 8/mph</span>
+          </p>
+          <p class="weather-card-expandable-stats hidden wind-direction">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/compass.svg"
+              alt="wind"
+            />
+            <span class="wind-direction-span"></span>
+          </p>
+          <p class="weather-card-expandable-stats hidden wind-gust">
+            <img
+              class="weather-card-exapndable-stats-icon"
+              src="../frontend/src/icons/wind-gust.svg"
+              alt="wind"
+            /><span class="wind-gust-span">up to 20 mph</span>
+          </p>
         </div>
       </section>
-      <!--  -->
+
+      <!-- weather card details section -->
       <section class="weather-card-details-container">
         <h3>
           Weather Details for
@@ -77,7 +254,8 @@
         </h3>
         <div class="weather-card-add-details"></div>
       </section>
-      <!--  -->
+
+      <!-- other cities suggestions section -->
       <section class="other-cities-container">
         <h3>Other Cities Weather</h3>
         <div class="other-cities">
