@@ -1,48 +1,56 @@
 # TOP-weather-app-2.1
 
-An appolication used to gather weather data based on users current location or a desired location. Built with HTML, CSS, Vanilla JS, Webpack, Yarn.
+An application used to gather weather data via a seeded zipcode, user chosen zipcode, or a random US location. Built with HTML, CSS, Vanilla JS, Webpack, Yarn.
 
 ## Project Focus:
 
-- Use vanilla JS and the fetch API to hit [tomorrow.io](https://www.tomorrow.io/) endpoints and display this data to the user.
+- Use vanilla JS and [Axios](https://www.npmjs.com/package/axios) to hit multiple API end points including:
+  - [OpenWeather current forcast](https://openweathermap.org/current) for weather at that exact time.
+  - [OpenWeather 5 Day / 3 Hour Forecast](https://openweathermap.org/api/hourly-forecast) for a 5 day forcast and up to 8 timepoints per day.
+  - [TheZipCodes](https://www.thezipcodes.com/) which takes a zip code and returns latitude / longtitude data.
 - Use ES6 await syntax for asynchronous functions and promise interactions.
-- Use a functional programming approach to limit applicaiton side effects and improve testability.
+- Use a functional programming approach to limit application side effects and improve testability.
 - Use TDD principles for non-dom based logic including API calls.
 - Use Github actions to create consisting testing and vetting conditions for all commits and pull requests.
 
 ## Project Status
 
-This project is currently in development.
+Complete
 
 ## Project Screen Shot(s)
 
 #### Example:
 
-[ PRETEND SCREEN SHOT IS HERE ]
-
-[ PRETEND OTHER SCREEN SHOT IS HERE ]
-
 ## Installation and Setup Instructions
 
 #### Example:
 
-Clone down this repository. You will need `node` and `npm` installed globally on your machine.
+Clone down this repository. You will need `node` and `yarn` installed globally on your machine.
 
 Installation:
 
-`npm install`
+`yarn install`
 
 To Run Test Suite:
 
-`npm test`
+`yarn test`
 
-To Start Server:
+To Run linter:
 
-`npm start`
+`yarn lint`
+
+To Start Back-end Server:
+
+`yarn start backend-server`
+
+To Start Front-end Server:
+
+`yarn start-frontend-server`
 
 To Visit App:
 
-`localhost:3000/ideas`
+1. Make sure both the `front-end` and `back-end` servers are running.
+2. Open the `index.html` file in your browser of choice.
 
 ## Reflection
 
