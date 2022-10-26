@@ -11,9 +11,9 @@ import reduceWeatherTimeStampsToSingleDay from './utils/reduce-to-one-day-foreca
 import getRandomZipCode from './utils/random-zipcode-generator.js';
 import delay from './utils/delay.js';
 
-// Mock data imports
-import MOCK_FORCAST_ZIPCODE_COMBINED_API_DATA from './utils/mock-api-data/forcast-zipcode-combined-data.js';
-import MOCK_CURRENT_WEATHER_THREE_LOCATIONS from './utils/mock-api-data/current-weather-three-locations-data.js';
+// Mock data imports (! uncomment the imports below to avoid API usage)
+// import MOCK_FORCAST_ZIPCODE_COMBINED_API_DATA from './utils/mock-api-data/forcast-zipcode-combined-data.js';
+// import MOCK_CURRENT_WEATHER_THREE_LOCATIONS from './utils/mock-api-data/current-weather-three-locations-data.js';
 
 // Style sheet imports
 import css from './styles/style.css';
