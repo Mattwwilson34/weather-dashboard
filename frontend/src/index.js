@@ -24,7 +24,7 @@ const SEED_ZIP_CODE = 27703;
 
 // Delay app display to give API time to respond with data
 (async () => {
-  await delay(6000);
+  await delay(5000);
   document.querySelector('.loading-header').classList.add('hidden');
   document.querySelector('.loading').classList.add('hidden');
   document.querySelector('main').classList.remove('hidden');
