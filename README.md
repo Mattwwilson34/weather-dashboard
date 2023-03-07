@@ -1,4 +1,4 @@
-# TOP-weather-app-2.1
+# Weather Dashboard
 
 An application used to gather weather data via a seeded zipcode, user chosen zipcode, or a random US location. Built with HTML, CSS, Vanilla JS, Webpack, Yarn.
 
